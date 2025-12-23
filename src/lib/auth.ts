@@ -18,7 +18,7 @@ const redirectURI = process.env.BASE_URL
 
 export const auth = betterAuth({
   baseURL: process.env.BASE_URL || FALLBACK_BASE_URL,
-  database: mongodbAdapter(db, { client }),
+  database: mongodbAdapter(db),
   emailAndPassword: {
     enabled: true,
   },

@@ -56,6 +56,7 @@ MONGODB_URI=mongodb://localhost:27017/your-database
 BASE_URL=http://localhost:3000
 ADMIN_SIGNUP_TYPE=admin-secret-key
 ZEN_DOMAIN=@yourdomain.com
+BETTER_AUTH_SECRET=your-auth-secret
 ```
 
 ## Run tests
