@@ -53,14 +53,28 @@ export class StorageService {
     filePath: string,
     mimeType: string,
   ): Promise<void> {
-    const command = new PutObjectCommand({
-      Bucket: this.bucketName,
-      Key: filePath,
-      Body: buffer,
-      ContentType: mimeType,
+    this.logger.log('Uploading file to S3', {
+      filePath,
+      mimeType,
     });
 
-    await this.s3Client.send(command);
+    try {
+      const command = new PutObjectCommand({
+        Bucket: this.bucketName,
+        Key: filePath,
+        Body: buffer,
+        ContentType: mimeType,
+      });
+
+      await this.s3Client.send(command);
+    } catch (error) {
+      this.logger.error('Failed to upload file to S3', error, {
+        filePath,
+        mimeType,
+      });
+
+      throw error;
+    }
   }
 
   /**
@@ -104,7 +118,12 @@ export class StorageService {
         mimeType: file.mimetype,
       };
     } catch (error) {
-      this.logger.error('Error uploading file to S3', error);
+      this.logger.error('Error uploading file to S3', error, {
+        folder,
+        mimeType: file.mimetype,
+        size: file.size,
+      });
+
       throw error;
     }
   }
