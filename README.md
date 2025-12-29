@@ -13,6 +13,7 @@ A NestJS template with MongoDB integration and Better Auth authentication system
 - **MongoDB Integration**: Ready-to-use MongoDB connection with Better Auth adapter
 - **Better Auth**: Comprehensive authentication system with session management, email/password auth, google sign on and more
 - **Role-Based Access Control**: Multi-role system (admin, vendor, customer) with custom signup logic
+- **AWS S3 Storage**: File upload and management service with pre-signed URLs and validation
 - **Security**: Built-in security features with secure session handling and user verification
 - **TypeScript**: Full TypeScript support for type safety
 - **Modular Architecture**: Clean, modular structure following NestJS best practices
@@ -46,6 +47,17 @@ The template includes Better Auth, a comprehensive authentication solution:
 - Custom user creation hooks with role assignment
 - Database integration with MongoDB adapter
 - Support for multiple authentication methods and providers
+
+## Storage Setup
+
+The template includes AWS S3 integration for file storage:
+
+- File upload with validation (PDF, images up to 10MB)
+- Secure file management with pre-signed URLs
+- Automatic file key generation using nanoid
+- Support for organized folder structure
+- File deletion capabilities
+- MIME type validation and size limits
 
 ## Environment Variables
 

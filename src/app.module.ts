@@ -6,6 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { FALLBACK_MONGODB_URI } from './lib/constants';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from './lib/auth';
+import { StorageModule } from './app/storage/storage.module';
+import { UserModule } from './app/user/user.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -14,6 +16,8 @@ import { auth } from './lib/auth';
     }),
     MongooseModule.forRoot(process.env.MONGODB_URI || FALLBACK_MONGODB_URI),
     AuthModule.forRoot({ auth: auth }),
+    StorageModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
