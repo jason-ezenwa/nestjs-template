@@ -59,12 +59,54 @@ The template includes AWS S3 integration for file storage:
 - File deletion capabilities
 - MIME type validation and size limits
 
+## Database Migrations
+
+The template uses migrate-mongo for database schema migrations, allowing you to manage MongoDB collection changes and data transformations in a controlled manner.
+
+### Creating a Migration
+
+To create a new migration file:
+
+```bash
+$ npm run create-db-migration migration-name
+```
+
+This will generate a timestamped migration file in the `migrations/` directory with the following structure:
+
+```javascript
+module.exports = {
+  async up(db, client) {
+    // Migration logic goes here
+  },
+
+  async down(db, client) {
+    // Rollback logic goes here
+  },
+};
+```
+
+### Running Migrations
+
+Migrations are automatically run when starting the application. The `migrate-db` script executes all pending migrations:
+
+```bash
+$ npm run migrate-db
+```
+
+### Migration Workflow
+
+1. Create a migration: `npm run create-db-migration your-migration-name`
+2. Edit the generated migration file with your database changes
+3. Implement both `up` and `down` (optional) methods for forward and rollback operations
+4. Start your application - migrations will run automatically
+
 ## Environment Variables
 
 Create a `.env` file in the root directory with the following variables:
 
 ```env
 MONGODB_URI=mongodb://localhost:27017/your-database
+DB_NAME=your-database
 BASE_URL=http://localhost:3000
 ADMIN_SIGNUP_TYPE=admin-secret-key
 ZEN_DOMAIN=@yourdomain.com
