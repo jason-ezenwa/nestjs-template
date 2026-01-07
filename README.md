@@ -111,6 +111,12 @@ BASE_URL=http://localhost:3000
 ADMIN_SIGNUP_TYPE=admin-secret-key
 ZEN_DOMAIN=@yourdomain.com
 BETTER_AUTH_SECRET=your-auth-secret
+
+#AWS
+AWS_ACCESS_KEY_ID=your-aws-access-key-id
+AWS_REGION=region
+AWS_SECRET_ACCESS_KEY=your-aws-secret-access-key
+AWS_BUCKET_NAME=bucket-name
 ```
 
 ## Run tests
