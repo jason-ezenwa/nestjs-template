@@ -7,6 +7,7 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { nanoid } from 'nanoid';
+import { ConfigService } from '@nestjs/config';
 
 export interface UploadResult {
   key: string;
@@ -19,18 +20,21 @@ export class StorageService {
   private s3Client: S3Client;
   private bucketName: string;
 
-  constructor() {
-    this.bucketName = process.env.AWS_BUCKET_NAME || '';
+  constructor(private configService: ConfigService) {
+    this.bucketName = this.configService.get<string>('AWS_BUCKET_NAME', '');
     this.initializeS3();
   }
 
   private initializeS3() {
     try {
       this.s3Client = new S3Client({
-        region: process.env.AWS_REGION || 'us-east-1',
+        region: this.configService.get<string>('AWS_REGION', 'eu-west-2'),
         credentials: {
-          accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+          accessKeyId: this.configService.get<string>('AWS_ACCESS_KEY_ID', ''),
+          secretAccessKey: this.configService.get<string>(
+            'AWS_SECRET_ACCESS_KEY',
+            '',
+          ),
         },
       });
 
