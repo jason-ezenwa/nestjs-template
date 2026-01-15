@@ -2,8 +2,6 @@ import { config } from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
-import { initializeMongoDB } from './lib/mongodb.client';
-
 // Load environment variables
 config();
 
@@ -32,7 +30,7 @@ async function bootstrap() {
       }
 
       // Reject other origins
-      return callback(new Error('Not allowed by CORS'), false);
+      return callback(null, false);
     },
     credentials: true, // Allow cookies and authorization headers
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
@@ -45,8 +43,6 @@ async function bootstrap() {
   });
 
   app.setGlobalPrefix('/api');
-
-  await initializeMongoDB();
 
   await app.listen(process.env.PORT ?? 3000);
 }

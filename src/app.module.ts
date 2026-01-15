@@ -10,6 +10,8 @@ import { StorageModule } from './app/storage/storage.module';
 import { UserModule } from './app/user/user.module';
 import { StripeModule } from './app/stripe/stripe.module';
 import { WebhookModule } from './app/webhook/webhook.module';
+import { EventsModule } from './app/events/events.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,6 +24,7 @@ import { WebhookModule } from './app/webhook/webhook.module';
     UserModule,
     StripeModule,
     WebhookModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
