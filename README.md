@@ -14,6 +14,7 @@ A NestJS template with MongoDB integration and Better Auth authentication system
 - **Better Auth**: Comprehensive authentication system with session management, email/password auth, google sign on and more
 - **Role-Based Access Control**: Multi-role system (admin, vendor, customer) with custom signup logic
 - **AWS S3 Storage**: File upload and management service with pre-signed URLs and validation
+- **Stripe Integration**: Payment processing with checkout sessions and webhook handling
 - **Security**: Built-in security features with secure session handling and user verification
 - **TypeScript**: Full TypeScript support for type safety
 - **Modular Architecture**: Clean, modular structure following NestJS best practices
@@ -58,6 +59,42 @@ The template includes AWS S3 integration for file storage:
 - Support for organized folder structure
 - File deletion capabilities
 - MIME type validation and size limits
+
+## Stripe Setup
+
+The template includes Stripe integration for payment processing:
+
+- Checkout session creation for secure payments
+- Webhook signature verification for event processing
+- Support for multiple currencies
+- Automatic amount conversion to lowest currency unit (cents/kobo)
+- Transaction reference tracking via metadata
+- Customizable success and cancel URLs
+
+### Local Development with Stripe CLI
+
+To test Stripe webhooks locally, use the Stripe CLI to forward events to your local server:
+
+1. Install the Stripe CLI: https://stripe.com/docs/stripe-cli
+
+2. Login to Stripe:
+   ```bash
+   stripe login
+   ```
+
+3. Forward webhooks to your local server:
+   ```bash
+   stripe listen --forward-to localhost:3000/api/webhooks/stripe
+   ```
+
+4. Copy the webhook signing secret from the CLI output and set it as `STRIPE_WEBHOOK_SECRET` in your `.env` file.
+
+5. In a separate terminal, run your server:
+   ```bash
+   npm run start:dev
+   ```
+
+The webhook endpoint at `/api/webhooks/stripe` will now receive Stripe events for testing checkout sessions, payment completions, and other payment flows.
 
 ## Database Migrations
 
@@ -117,6 +154,10 @@ AWS_ACCESS_KEY_ID=your-aws-access-key-id
 AWS_REGION=region
 AWS_SECRET_ACCESS_KEY=your-aws-secret-access-key
 AWS_BUCKET_NAME=bucket-name
+
+#Stripe
+STRIPE_SECRET_KEY=your-stripe-secret-key
+STRIPE_WEBHOOK_SECRET=your-stripe-webhook-secret
 ```
 
 ## Run tests

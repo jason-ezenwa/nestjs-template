@@ -8,6 +8,8 @@ import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from './lib/auth';
 import { StorageModule } from './app/storage/storage.module';
 import { UserModule } from './app/user/user.module';
+import { StripeModule } from './app/stripe/stripe.module';
+import { WebhookModule } from './app/webhook/webhook.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -18,6 +20,8 @@ import { UserModule } from './app/user/user.module';
     AuthModule.forRoot({ auth: auth }),
     StorageModule,
     UserModule,
+    StripeModule,
+    WebhookModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -9,7 +9,7 @@ config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    bodyParser: false, // Required for Better Auth
+    rawBody: true,
   });
 
   // Enable validation pipes
