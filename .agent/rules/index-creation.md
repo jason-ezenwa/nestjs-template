@@ -1,7 +1,7 @@
 ---
-trigger: always_on
+description: Enforces database index creation via migrations instead of Mongoose decorators
+globs: "**/*.schema.ts, **/*.js"
 ---
-
 # Database Index Creation
 
 ## Rule
