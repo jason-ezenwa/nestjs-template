@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Controller,
   Post,
   Req,
@@ -22,7 +23,7 @@ export class WebhookController {
     const rawBody = req.rawBody;
 
     if (!rawBody) {
-      throw new Error('Raw body not available');
+      throw new BadRequestException('Raw body not available');
     }
 
     await this.webhookService.handleStripeWebhook(rawBody, signature);
