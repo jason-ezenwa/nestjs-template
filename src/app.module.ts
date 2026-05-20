@@ -19,7 +19,7 @@ import { EventsModule } from './app/events/events.module';
       envFilePath: '.env',
     }),
     MongooseModule.forRoot(process.env.MONGODB_URI || FALLBACK_MONGODB_URI),
-    AuthModule.forRoot({ auth: auth }),
+    AuthModule.forRoot({ auth: auth, enableRawBodyParser: true }),
     StorageModule,
     UserModule,
     StripeModule,
